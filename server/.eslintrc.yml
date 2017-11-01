@@ -1,0 +1,25 @@
+parserOptions:
+  ecmaVersion: 2017
+  sourceType: module
+  ecmaFeatures:
+    jsx: true
+plugins:
+  - jest
+  - lodash
+extends:
+  - standard
+  - plugin:lodash/recommended
+env:
+  node: true
+  es6: true
+  jest/globals: true
+rules:
+  comma-dangle: off
+
+  #jest
+  jest/no-disabled-tests: warn
+  jest/no-focused-tests: error
+  jest/no-identical-title: error
+  jest/valid-expect: error
+
+  lodash/import-scope: off
