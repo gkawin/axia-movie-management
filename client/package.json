@@ -1,0 +1,11 @@
+{
+  "name": "Movie Management Client Side",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kawin Glomjai",
+  "license": "ISC"
+}

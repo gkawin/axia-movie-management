@@ -1,0 +1,19 @@
+{
+  "name": "axia-movie-management",
+  "version": "1.0.0",
+  "description": "Rush hours",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gkawin/axia-movie-management.git"
+  },
+  "author": "Kawin Glomjai <g.kawin@live.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gkawin/axia-movie-management/issues"
+  },
+  "homepage": "https://github.com/gkawin/axia-movie-management#readme"
+}
