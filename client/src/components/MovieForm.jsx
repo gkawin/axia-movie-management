@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
+import { FormGroup, ControlLabel, FormControl, Button, Form } from 'react-bootstrap'
 import Select from 'react-select'
 import _ from 'lodash'
 
@@ -17,46 +17,64 @@ function getYearRangeOptions () {
 
 class MovieForm extends React.PureComponent {
   static propTypes = {
-    onChange: PropTypes.func,
+    formData: PropTypes.shape({
+      movieTitle: PropTypes.string.isRequired,
+      releasedYear: PropTypes.number.isRequired,
+      rating: PropTypes.string,
+    })
+  }
+
+  state = { movieTitle: undefined, releasedYear: null, rating: null }
+
+  componentDidMount = () => {
+    if (_.isEmpty(this.props.formData)) {
+      this.setState({ releasedYear: currentYear })
+      return
+    }
+    this.setState({ ...this.props.formData })
   }
 
   onChange = (target) => {
     const id = _.get(target, 'id')
     const value = _.get(target, 'value')
-    this.props.onChange({ id, value })
+    this.setState({ [id]: value })
   }
 
   render () {
     return (
-      <form>
+      <Form>
         <FormGroup controlId='movieTitle'>
           <ControlLabel>Movie Title</ControlLabel>
           <FormControl
             type='text'
             label='Movie Title'
             placeholder='Movie Title'
+            value={this.state.movieTitle}
             onChange={(e) => this.onChange(e.target)}
           />
         </FormGroup>
-        <FormGroup controlId='yearReleased'>
+        <FormGroup controlId='releasedYear'>
           <ControlLabel>Year Released</ControlLabel>
           <Select
-            name='yearReleased'
-            value={currentYear}
+            name='releasedYear'
+            value={this.state.releasedYear}
             options={withOptionsValue(getYearRangeOptions())}
-            onChange={(o) => this.onChange({ ...o, id: 'yearReleased' })}
+            onChange={(o) => this.onChange({ ...o, id: 'releasedYear' })}
           />
         </FormGroup>
         <FormGroup controlId='rating'>
           <ControlLabel>Rating</ControlLabel>
           <Select
             name='rating'
-            value='G'
+            value={this.state.rating}
             options={withOptionsValue(rates)}
             onChange={(o) => this.onChange({ ...o, id: 'rating' })}
           />
         </FormGroup>
-      </form>
+        <Button type='submit'>
+          Submit
+        </Button>
+      </Form>
     )
   }
 }

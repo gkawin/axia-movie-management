@@ -5,7 +5,14 @@ import MovieForm from './MovieForm.jsx'
 
 storiesOf('Movie Form', module)
 .add('Add new one', () => (
+  <MovieForm />
+))
+.add('Editing', () => (
   <MovieForm
-    onChange={action()}
+    formData={{
+      movieTitle: 'Kimi no Musubime (きみの結びめ)',
+      releasedYear: 2017,
+      rating: 'G'
+    }}
   />
 ))
