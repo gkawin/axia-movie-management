@@ -15,9 +15,15 @@ function getYearRangeOptions () {
   return _.range('1900', new Date().getFullYear() + 10)
 }
 
-class AddMovieForm extends React.PureComponent {
+class MovieForm extends React.PureComponent {
   static propTypes = {
     onChange: PropTypes.func,
+  }
+
+  onChange = (target) => {
+    const id = _.get(target, 'id')
+    const value = _.get(target, 'value')
+    this.props.onChange({ id, value })
   }
 
   render () {
@@ -29,6 +35,7 @@ class AddMovieForm extends React.PureComponent {
             type='text'
             label='Movie Title'
             placeholder='Movie Title'
+            onChange={(e) => this.onChange(e.target)}
           />
         </FormGroup>
         <FormGroup controlId='yearReleased'>
@@ -37,7 +44,7 @@ class AddMovieForm extends React.PureComponent {
             name='yearReleased'
             value={currentYear}
             options={withOptionsValue(getYearRangeOptions())}
-            onChange={this.props.onChange}
+            onChange={(o) => this.onChange({ ...o, id: 'yearReleased' })}
           />
         </FormGroup>
         <FormGroup controlId='rating'>
@@ -46,7 +53,7 @@ class AddMovieForm extends React.PureComponent {
             name='rating'
             value='G'
             options={withOptionsValue(rates)}
-            onChange={this.props.onChange}
+            onChange={(o) => this.onChange({ ...o, id: 'rating' })}
           />
         </FormGroup>
       </form>
@@ -54,4 +61,4 @@ class AddMovieForm extends React.PureComponent {
   }
 }
 
-export default AddMovieForm
+export default MovieForm
