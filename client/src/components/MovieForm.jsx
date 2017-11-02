@@ -17,6 +17,7 @@ function getYearRangeOptions () {
 
 class MovieForm extends React.PureComponent {
   static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
     formData: PropTypes.shape({
       movieTitle: PropTypes.string.isRequired,
       releasedYear: PropTypes.number.isRequired,
@@ -40,9 +41,14 @@ class MovieForm extends React.PureComponent {
     this.setState({ [id]: value })
   }
 
+  onSubmit = (e) => {
+    e.preventDefault()
+    this.props.onSubmit(this.state)
+  }
+
   render () {
     return (
-      <Form>
+      <Form onSubmit={this.onSubmit}>
         <FormGroup controlId='movieTitle'>
           <ControlLabel>Movie Title</ControlLabel>
           <FormControl
