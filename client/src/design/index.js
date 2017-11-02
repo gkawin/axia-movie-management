@@ -1,5 +1,2 @@
-import * as Colors from './colors'
 
-export default {
-  Colors,
-}
+export const colors = require('./colors')

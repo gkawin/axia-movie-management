@@ -1,80 +1,53 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Jumbotron, Button } from 'react-bootstrap'
 import styled from 'styled-components'
-import _ from 'lodash'
+import { colors } from 'main-design'
 
-const labels = [
-  { name: 'add', label: 'Add Movie', btnStyle: 'default' },
-  { name: 'read', label: 'Show All Movies', btnStyle: 'primary' },
-  { name: 'edit', label: 'Edit Movie', btnStyle: 'warning' },
-  { name: 'delete', label: 'Delete Movie', btnStyle: 'danger' }
-]
+import Panel from './Panel.jsx'
+import MovieForm from './MovieForm.jsx'
 
 class Dashboard extends React.PureComponent {
   static propTypes = {
+    className: PropTypes.string,
+    restriction: PropTypes.arrayOf(PropTypes.object),
     employee: PropTypes.shape({
       position: PropTypes.string.isRequired,
-    }),
-    restriction: PropTypes.array.isRequired,
-    className: PropTypes.string,
-    onClickOperation: PropTypes.func.isRequired,
+    })
   }
+
+  state = { toggleMovieForm: false, mode: null }
 
   onClickOperation = (e) => {
-    e.preventDefault()
-    this.props.onClickOperation(e)
+    this.setState({ toggleMovieForm: true, mode: e.target.name })
   }
 
-  renderButton = (btnItem) => {
+  renderForm () {
+    if (!this.state.toggleMovieForm) return null
     return (
-      <Button
-        bsStyle={btnItem.btnStyle}
-        className='operation__button'
-        name={btnItem.name}
-        onClick={this.onClickOperation}
-      >
-        {btnItem.label}
-      </Button>
+      <section className='form'>
+        <MovieForm />
+      </section>
     )
-  }
-
-  renderButtons = () => {
-    const restriction = _.flatten(_.values(_.find(this.props.restriction, this.props.employee.position)))
-    if (restriction.length === 0) return null
-    const permissions = restriction[0] === '*'
-      ? _.map(labels, 'name')
-      : restriction
-    const toAllow = new Set(permissions)
-    return _(labels)
-      .filter(obj => toAllow.has(obj.name))
-      .map(this.renderButton)
-      .value()
   }
 
   render () {
     return (
-      <Jumbotron className={this.props.className}>
-        <h1>Welcome Mr. {this.props.employee.position}</h1>
-        <p>Movie Management</p>
-        <p className='operation'>{this.renderButtons()}</p>
-      </Jumbotron>
+      <div className={this.props.className}>
+        <Panel
+          employee={this.props.employee}
+          restriction={this.props.restriction}
+          onClickOperation={this.onClickOperation}
+        />
+        {this.renderForm()}
+      </div>
     )
   }
 }
 
 export default styled(Dashboard)`
   width: 100%;
-  padding: 20px;
-  display: inline-block;
-  text-align: center;
-  .operation {
-    display: inline-block;
-    &__button {
-      margin-right: 20px;
-    }
-    &:last-child {
-      margin-right: 0;
-    }
+  .form {
+    padding: 30px;
+    background-color: ${colors.$grey100}
   }
 `
