@@ -1,13 +1,13 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import MovieForm from './MovieForm.jsx'
+import AddForm from './AddForm.jsx'
 
 storiesOf('Movie Form', module)
 .add('Add new one', () => (
-  <MovieForm />
+  <AddForm />
 ))
 .add('Editing', () => (
-  <MovieForm
+  <AddForm
     formData={{
       movieTitle: 'Kimi no Musubime (きみの結びめ)',
       releasedYear: 2017,

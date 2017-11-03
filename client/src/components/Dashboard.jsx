@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { colors } from 'main-design'
 
 import Panel from './Panel.jsx'
-import MovieForm from './MovieForm.jsx'
+// import MovieForm from './MovieForm.jsx'
 
 class Dashboard extends React.PureComponent {
   static propTypes = {
@@ -25,7 +25,7 @@ class Dashboard extends React.PureComponent {
     if (!this.state.toggleMovieForm) return null
     return (
       <section className='form'>
-        <MovieForm />
+        {/* <MovieForm /> */}
       </section>
     )
   }

@@ -1,19 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormGroup, ControlLabel, FormControl, Button, Form } from 'react-bootstrap'
-import Select from 'react-select'
 import _ from 'lodash'
 
-const currentYear = new Date().getFullYear()
-const rates = [ 'G', 'PG', 'M', 'MA', 'R' ]
-
-function withOptionsValue (item) {
-  return _.map(item, y => ({ label: y, value: y }))
-}
-
-function getYearRangeOptions () {
-  return _.range('1900', new Date().getFullYear() + 10)
-}
+import ReleasedYearSelector from './ReleasedYearSelector.jsx'
+import RatingSelector from './RatingSelector.jsx'
 
 class MovieForm extends React.PureComponent {
   static propTypes = {
@@ -28,10 +19,6 @@ class MovieForm extends React.PureComponent {
   state = { movieTitle: undefined, releasedYear: null, rating: null }
 
   componentDidMount = () => {
-    if (_.isEmpty(this.props.formData)) {
-      this.setState({ releasedYear: currentYear })
-      return
-    }
     this.setState({ ...this.props.formData })
   }
 
@@ -47,6 +34,7 @@ class MovieForm extends React.PureComponent {
   }
 
   render () {
+    console.log(this.state)
     return (
       <Form onSubmit={this.onSubmit}>
         <FormGroup controlId='movieTitle'>
@@ -59,24 +47,14 @@ class MovieForm extends React.PureComponent {
             onChange={(e) => this.onChange(e.target)}
           />
         </FormGroup>
-        <FormGroup controlId='releasedYear'>
-          <ControlLabel>Year Released</ControlLabel>
-          <Select
-            name='releasedYear'
-            value={this.state.releasedYear}
-            options={withOptionsValue(getYearRangeOptions())}
-            onChange={(o) => this.onChange({ ...o, id: 'releasedYear' })}
-          />
-        </FormGroup>
-        <FormGroup controlId='rating'>
-          <ControlLabel>Rating</ControlLabel>
-          <Select
-            name='rating'
-            value={this.state.rating}
-            options={withOptionsValue(rates)}
-            onChange={(o) => this.onChange({ ...o, id: 'rating' })}
-          />
-        </FormGroup>
+        <ReleasedYearSelector
+          value={this.state.releasedYear}
+          onChange={this.onChange}
+        />
+        <RatingSelector
+          value={this.state.rating}
+          onChange={this.onChange}
+        />
         <Button type='submit'>
           Submit
         </Button>
