@@ -1,14 +1,8 @@
 // NOTE: Firebase config
 export const firebase = {
-  // apiKey: process.env.API_KEY,
-  // authDomain: process.env.AUTH_DOMAIN,
-  // databaseURL: process.env.DB_HOST,
-  // storageBucket: process.env.STORAGE_HOST,
-  // messagingSenderId: process.env.SENDER_ID
-  apiKey: 'AIzaSyBTJ39mIjHxO8vDg81DwFoIQUk_0LvSJoI',
-  authDomain: 'axia-movie-management.firebaseapp.com',
-  databaseURL: 'https://axia-movie-management.firebaseio.com',
-  projectId: 'axia-movie-management',
-  storageBucket: 'axia-movie-management.appspot.com',
-  messagingSenderId: '603417327257'
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTH_DOMAIN,
+  databaseURL: process.env.DB_HOST,
+  storageBucket: process.env.STORAGE_HOST,
+  messagingSenderId: process.env.SENDER_ID
 }
