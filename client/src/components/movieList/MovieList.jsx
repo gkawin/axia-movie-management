@@ -31,16 +31,18 @@ class MovieList extends React.PureComponent {
 
   }
 
-  onChangeInputUpdate = (e, cellInfo) => {
+  onChangeInputUpdate = async (o, cellInfo) => {
     const affectAtColumn = cellInfo.column.id
-    this.setState({
+    const updatedValue = o.target.value
+    await this.setState({
       editItem: {
         ...this.state.editItem,
         payload: {
           ...this.state.editItem.payload,
-          [affectAtColumn]: e.target.value
+          [affectAtColumn]: updatedValue
         } }
     })
+    console.log(this.state)
   }
 
   onClickOperation = (e, rowInfo) => {
@@ -85,7 +87,7 @@ class MovieList extends React.PureComponent {
         label='Movie Title'
         placeholder='Movie Title'
         value={representValue}
-        onChange={(e) => this.onChangeInputUpdate(e, cellInfo)}
+        onChange={(o) => this.onChangeInputUpdate(o, cellInfo)}
       />
     )
   }
@@ -102,7 +104,7 @@ class MovieList extends React.PureComponent {
       <Component
         nolabel
         value={representValue}
-        onChange={(o) => { console.log(o) }}
+        onChange={(o) => this.onChangeInputUpdate({ target: o }, cellInfo)}
       />
     )
   }
@@ -111,6 +113,7 @@ class MovieList extends React.PureComponent {
     return (
       <div className={this.props.className}>
         <ReactTable
+          className='movie-list'
           data={this.props.data}
           columns={[
             { Header: 'Movie Title', accessor: 'movieTitle', Cell: this.renderTextInputEditableCell },
