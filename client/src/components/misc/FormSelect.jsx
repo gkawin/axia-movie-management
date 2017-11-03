@@ -20,7 +20,7 @@ class FormSelect extends React.PureComponent {
   render () {
     return (
       <FormGroup controlId={this.props.name}>
-        {this.props.nolabel ? null : <ControlLabel className='label'>{this.props.label}</ControlLabel>}
+        {this.props.nolabel ? null : <ControlLabel>{this.props.label}</ControlLabel>}
         <Select
           name={this.props.name}
           value={this.props.value}

@@ -27,8 +27,8 @@ class ReleasedYearSelection extends React.PureComponent {
     return (
       <FormSelect
         nolabel={this.props.nolabel}
-        label='Rating'
-        name='rating'
+        label='ReleasedYear'
+        name='releasedYear'
         optionItems={getYearRangeOptions()}
         value={this.props.value}
         onChange={this.onChange}
