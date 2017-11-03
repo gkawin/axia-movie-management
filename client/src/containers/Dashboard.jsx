@@ -13,7 +13,7 @@ import MovieList from '../components/movieList/MovieList.jsx'
 
 const enhance = compose(
   connect(
-    state => ({ movieTransactionState: false }),
+    (state) => ({ }),
     { onSubmit: MovieActions.saveMovie }
   )
 )
@@ -50,6 +50,7 @@ class Dashboard extends React.PureComponent {
   }
 
   render () {
+    console.log(this.props)
     return (
       <div className={this.props.className}>
         <Panel
