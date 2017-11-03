@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 
-import FormSelect from '../misc/FormSelect'
+import FormSelect from '../misc/FormSelect.jsx'
 
 function getYearRangeOptions () {
   return _.range('1900', new Date().getFullYear() + 10)

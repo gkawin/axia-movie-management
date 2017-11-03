@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import FormSelect from '../misc/FormSelect'
+import FormSelect from '../misc/FormSelect.jsx'
 
 const rates = [ 'G', 'PG', 'M', 'MA', 'R' ]
 

@@ -1,8 +1,9 @@
+import 'react-select/dist/react-select.css'
+
 import React from 'react'
 import PropTypes from 'prop-types'
 import { FormGroup, ControlLabel } from 'react-bootstrap'
 import Select from 'react-select'
-import styled from 'styled-components'
 
 import withReactSelectOptionsValue from '../../concerns/withReactSelectOptionsValue'
 
@@ -11,7 +12,7 @@ class FormSelect extends React.PureComponent {
     nolabel: PropTypes.bool,
     name: PropTypes.string,
     label: PropTypes.string,
-    optionItems: PropTypes.arrayOf(PropTypes.string),
+    optionItems: PropTypes.array,
     value: PropTypes.any,
     onChange: PropTypes.func,
   }

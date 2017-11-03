@@ -4,19 +4,13 @@ import { Jumbotron, Button } from 'react-bootstrap'
 import styled from 'styled-components'
 import _ from 'lodash'
 
-const labels = [
-  { name: 'add', label: 'Add Movie', btnStyle: 'default' },
-  { name: 'read', label: 'Show All Movies', btnStyle: 'primary' },
-  { name: 'edit', label: 'Edit Movie', btnStyle: 'warning' },
-  { name: 'delete', label: 'Delete Movie', btnStyle: 'danger' }
-]
+import { isGranted } from '../../policies/restriction'
 
 class Panel extends React.PureComponent {
   static propTypes = {
     employee: PropTypes.shape({
       position: PropTypes.string.isRequired,
     }),
-    restriction: PropTypes.array.isRequired,
     className: PropTypes.string,
     onClickOperation: PropTypes.func.isRequired,
   }
@@ -26,9 +20,10 @@ class Panel extends React.PureComponent {
     this.props.onClickOperation(e)
   }
 
-  renderButton = (btnItem) => {
+  renderButton = (btnItem, key) => {
     return (
       <Button
+        key={key}
         bsStyle={btnItem.btnStyle}
         className='operation__button'
         name={btnItem.name}
@@ -40,14 +35,11 @@ class Panel extends React.PureComponent {
   }
 
   renderButtons = () => {
-    const restriction = _.flatten(_.values(_.find(this.props.restriction, this.props.employee.position)))
-    if (restriction.length === 0) return null
-    const permissions = restriction[0] === '*'
-      ? _.map(labels, 'name')
-      : restriction
-    const toAllow = new Set(permissions)
-    return _(labels)
-      .filter(obj => toAllow.has(obj.name))
+    return _([
+      { name: 'add', label: 'Add Movie', btnStyle: 'default' },
+      { name: 'read', label: 'Show All Movies', btnStyle: 'primary' },
+    ])
+      .filter(obj => isGranted(this.props.employee.position, obj.name))
       .map(this.renderButton)
       .value()
   }

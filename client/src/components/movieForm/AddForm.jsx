@@ -6,7 +6,7 @@ import _ from 'lodash'
 import ReleasedYearSelector from './ReleasedYearSelector.jsx'
 import RatingSelector from './RatingSelector.jsx'
 
-class MovieForm extends React.PureComponent {
+class AddForm extends React.PureComponent {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
     formData: PropTypes.shape({
@@ -62,4 +62,4 @@ class MovieForm extends React.PureComponent {
   }
 }
 
-export default MovieForm
+export default AddForm
