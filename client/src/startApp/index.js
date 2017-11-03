@@ -1,7 +1,9 @@
 import React from 'react'
 import { render } from 'react-dom'
+import { Provider } from 'react-redux'
 
 import AppLayout from './AppLayout.jsx'
+import configureStore from '../configureStore'
 
 // mocking from store
 const employee = {
@@ -22,7 +24,12 @@ const moviesData = [
   }
 ]
 
-render(<AppLayout
-  employee={employee}
-  moviesData={moviesData}
-/>, document.getElementById('app'))
+render(
+  <Provider store={configureStore()}>
+    <AppLayout
+      employee={employee}
+      moviesData={moviesData}
+    />
+  </Provider>,
+  document.getElementById('app')
+)
