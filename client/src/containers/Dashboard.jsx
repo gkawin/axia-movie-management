@@ -2,10 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { colors } from 'main-design'
+import { connect } from 'react-redux'
+import { compose } from 'recompose'
+
+import * as MovieActions from '../action-creators/MovieActions'
 
 import Panel from '../components/dashboard/Panel.jsx'
 import AddForm from '../components/movieForm/AddForm.jsx'
 import MovieList from '../components/movieList/MovieList.jsx'
+
+const enhance = compose(
+  connect(
+    state => ({ movieTransactionState: false }),
+    { onSubmit: MovieActions.saveMovie }
+  )
+)
 
 class Dashboard extends React.PureComponent {
   static propTypes = {
@@ -13,7 +24,9 @@ class Dashboard extends React.PureComponent {
     moviesData: PropTypes.arrayOf(PropTypes.object),
     employee: PropTypes.shape({
       position: PropTypes.string.isRequired,
-    })
+    }),
+    // HOC
+    onSubmit: PropTypes.func,
   }
 
   state = { toggleForm: false, mode: null }
@@ -30,7 +43,7 @@ class Dashboard extends React.PureComponent {
         <Component
           employee={this.props.employee}
           data={this.props.moviesData}
-          onSubmit={(e) => { console.log(e) }}
+          onSubmit={this.props.onSubmit}
         />
       </div>
     )
@@ -43,14 +56,13 @@ class Dashboard extends React.PureComponent {
           employee={this.props.employee}
           onClickOperation={this.onClickOperation}
         />
-
         {this.renderForm()}
       </div>
     )
   }
 }
 
-export default styled(Dashboard)`
+export default styled(enhance(Dashboard))`
   width: 100%;
   .form-viewer {
     padding: 30px;
