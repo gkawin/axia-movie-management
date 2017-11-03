@@ -6,7 +6,7 @@ import ReactTable from 'react-table'
 import { Button, FormControl } from 'react-bootstrap'
 import _ from 'lodash'
 import styled from 'styled-components'
-import Select from 'react-select'
+import u from 'updeep'
 
 import { isGranted } from '../../policies/restriction'
 import ReleasedYearSelector from '../movieForm/ReleasedYearSelector.jsx'
@@ -27,8 +27,11 @@ class MovieList extends React.PureComponent {
     this.setState({ editItem: { editable: true, at: rowInfo.index, payload: rowInfo.original } })
   }
 
-  onDeleteRow = (rowInfo) => {
-
+  onDeleteRow = async (rowInfo) => {
+    await this.setState({ editItem: u({ at: rowInfo.index })(this.state.editItem) })
+    console.log(this.state.editItem)
+    // await this.state.store.deleteAt(this.state.editItem.at)
+    this.forceUpdate()
   }
 
   onChangeInputUpdate = async (o, cellInfo) => {
@@ -42,7 +45,6 @@ class MovieList extends React.PureComponent {
           [affectAtColumn]: updatedValue
         } }
     })
-    console.log(this.state)
   }
 
   onClickOperation = (e, rowInfo) => {
@@ -50,6 +52,13 @@ class MovieList extends React.PureComponent {
       ? this.onEditRow
       : this.onDeleteRow
     fnOperation(rowInfo)
+  }
+
+  onUpdateRow = async (rowInfo) => {
+    await this.setState({ editItem: u({ editable: false })(this.state.editItem) })
+    // const { at, payload } = this.state.editItem
+    console.log(this.state.editItem)
+    // await this.state.store.updateAt(at, payload)
   }
 
   renderButton = (btnItem, rowInfo) => {
@@ -82,13 +91,15 @@ class MovieList extends React.PureComponent {
     const affectAtColumn = cellInfo.column.id
     const representValue = _.get(this.state.editItem.payload, affectAtColumn, '')
     return (
-      <FormControl
-        type='text'
-        label='Movie Title'
-        placeholder='Movie Title'
-        value={representValue}
-        onChange={(o) => this.onChangeInputUpdate(o, cellInfo)}
-      />
+      <div onBlur={() => this.onUpdateRow(cellInfo)}>
+        <FormControl
+          type='text'
+          label='Movie Title'
+          placeholder='Movie Title'
+          value={representValue}
+          onChange={(o) => this.onChangeInputUpdate(o, cellInfo)}
+        />
+      </div>
     )
   }
 
@@ -101,11 +112,13 @@ class MovieList extends React.PureComponent {
       ? ReleasedYearSelector
       : RatingSelector
     return (
-      <Component
-        nolabel
-        value={representValue}
-        onChange={(o) => this.onChangeInputUpdate({ target: o }, cellInfo)}
-      />
+      <div onBlur={() => this.onUpdateRow(cellInfo)}>
+        <Component
+          nolabel
+          value={representValue}
+          onChange={(o) => this.onChangeInputUpdate({ target: o }, cellInfo)}
+        />
+      </div>
     )
   }
 
