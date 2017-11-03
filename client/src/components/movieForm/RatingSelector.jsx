@@ -7,6 +7,7 @@ const rates = [ 'G', 'PG', 'M', 'MA', 'R' ]
 
 class RatingSelector extends React.PureComponent {
   static propTypes = {
+    nolabel: PropTypes.bool,
     value: PropTypes.string,
     onChange: PropTypes.func,
   }
@@ -22,6 +23,7 @@ class RatingSelector extends React.PureComponent {
   render () {
     return (
       <FormSelect
+        nolabel={this.props.nolabel}
         label='Rating'
         name='rating'
         optionItems={rates}

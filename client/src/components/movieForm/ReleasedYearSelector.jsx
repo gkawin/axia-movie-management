@@ -10,6 +10,7 @@ function getYearRangeOptions () {
 
 class ReleasedYearSelection extends React.PureComponent {
   static propTypes = {
+    nolabel: PropTypes.bool,
     value: PropTypes.number,
     onChange: PropTypes.func,
   }
@@ -25,6 +26,7 @@ class ReleasedYearSelection extends React.PureComponent {
   render () {
     return (
       <FormSelect
+        nolabel={this.props.nolabel}
         label='Rating'
         name='rating'
         optionItems={getYearRangeOptions()}

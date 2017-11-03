@@ -8,16 +8,9 @@ import _ from 'lodash'
 import styled from 'styled-components'
 import Select from 'react-select'
 
-const labels = [
-  { name: 'edit', label: 'Edit', btnStyle: 'warning' },
-  { name: 'delete', label: 'Delete', btnStyle: 'danger' }
-]
-
-const restrictionRules = [
-  { 'Manager': [ '*' ] },
-  { 'TeamLeader': [ 'read', 'add', 'edit' ] },
-  { 'FloorSale': [ 'read' ] }
-]
+import { isGranted } from '../../policies/restriction'
+import ReleasedYearSelector from '../movieForm/ReleasedYearSelector.jsx'
+import RatingSelector from '../movieForm/RatingSelector.jsx'
 
 class MovieList extends React.PureComponent {
   static propTypes = {
@@ -71,14 +64,11 @@ class MovieList extends React.PureComponent {
   }
 
   renderOperation = (rowInfo) => {
-    const restriction = _.flatten(_.values(_.find(restrictionRules, this.props.employee.position)))
-    if (restriction.length === 0) return null
-    const permissions = restriction[0] === '*'
-      ? _.map(labels, 'name')
-      : restriction
-    const toAllow = new Set(permissions)
-    const buttonGroup = _(labels)
-      .filter(obj => toAllow.has(obj.name))
+    const buttonGroup = _([
+      { name: 'edit', label: 'Edit', btnStyle: 'warning' },
+      { name: 'delete', label: 'Delete', btnStyle: 'danger' }
+    ])
+      .filter(obj => isGranted(this.props.employee.position, obj.name))
       .map((btn) => this.renderButton(btn, rowInfo))
       .value()
     return (<div className='btn-operation'>{buttonGroup}</div>)
@@ -105,14 +95,16 @@ class MovieList extends React.PureComponent {
       this.state.editItem.at !== cellInfo.index) return (<div>{cellInfo.value}</div>)
     const affectAtColumn = cellInfo.column.id
     const representValue = _.get(this.state.editItem.payload, affectAtColumn, '')
-    return (<Select
-      name='releasedYear'
-      value={this.state.releasedYear}
-      options={[]}
-      onChange={(o) => {
-        console.log(o)
-      }}
-    />)
+    const Component = affectAtColumn === 'releasedYear'
+      ? ReleasedYearSelector
+      : RatingSelector
+    return (
+      <Component
+        nolabel
+        value={representValue}
+        onChange={(o) => { console.log(o) }}
+      />
+    )
   }
 
   render () {

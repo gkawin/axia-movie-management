@@ -6,8 +6,8 @@ const restrictionRules = [
   { 'FloorSale': [ 'read' ] }
 ]
 
-export function isPermission (position, permissionType) {
-  if (permissionType === '*') return true
+export function isGranted (position, permissionType) {
+  if (permissionType === '*' || position === 'Manager') return true
 
   const permissions = _.flatten(_.values(_.find(restrictionRules, position)))
   if (permissions.length === 0) return false
