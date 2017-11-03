@@ -1,8 +1,11 @@
 import AlgebraicType from 'algebraic-type'
 
 const Action = AlgebraicType({
-  starterRequested: { },
-  starterFinished: { }
+  AddNewMovie: { },
+
+  FetchAllMoviesRequested: { },
+  FetchAllMoviesSucceed: { },
+  FetchAllMoviesFailure: { },
 })
 
 export default Action
