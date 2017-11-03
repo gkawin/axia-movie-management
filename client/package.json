@@ -9,7 +9,7 @@
     "deploy": "firebase deploy --only hosting",
     "dev:ui": "start-storybook -p 9001 -c .storybook",
     "dev": "env NODE_ENV=development webpack-dev-server --open --config webpack.dev.js --hot --inline --progress --port 9000",
-    "test": "jest",
+    "test": "env BABEL_ENV=test jest",
     "lint": "eslint src"
   },
   "author": "Kawin Glomjai <g.kawin@live.com>",
@@ -34,6 +34,7 @@
     "@storybook/react": "^3.2.14",
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
+    "babel-jest": "^21.2.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-styled-components": "^1.2.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -49,15 +50,22 @@
     "eslint-config-standard": "^6.2.1",
     "eslint-config-standard-react": "^4.2.0",
     "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jest": "^21.2.0",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-react": "^6.8.0",
     "eslint-plugin-standard": "^2.0.1",
     "file-loader": "^1.1.5",
     "html-webpack-plugin": "^2.30.1",
+    "jest": "^21.2.1",
     "uglifyjs-webpack-plugin": "^1.0.0-beta.3",
     "webpack": "^3.7.1",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [ "js" ],
+    "moduleDirectories": [ "node_modules" ],
+    "transform": { "^.+\\.js$": "babel-jest" }
   }
 }

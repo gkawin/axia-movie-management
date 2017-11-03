@@ -34,7 +34,6 @@ class MovieForm extends React.PureComponent {
   }
 
   render () {
-    console.log(this.state)
     return (
       <Form onSubmit={this.onSubmit}>
         <FormGroup controlId='movieTitle'>
