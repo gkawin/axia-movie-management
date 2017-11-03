@@ -3,21 +3,10 @@ import thunk from 'redux-thunk'
 import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
 import * as FirebaseConfig from './firebaseConfig'
 
-const logger = store => next => action => {
-  console.group(action.type)
-  console.log('current state', store.getState())
-  console.log('dispatching', action)
-  const result = next(action)
-  console.log('next state', store.getState())
-  console.groupEnd(action.type)
-  return result
-}
-
 const enhance = compose(
-  applyMiddleware(...[
+  applyMiddleware(
     thunk.withExtraArgument(getFirebase),
-    logger
-  ]),
+  ),
   reactReduxFirebase(FirebaseConfig.firebase, { userProfile: 'users' }),
   window.devToolsExtension && window.devToolsExtension()
 )

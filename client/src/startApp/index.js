@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 
+import { getAllMovies } from '../action-creators/MovieActions'
 import AppLayout from './AppLayout.jsx'
 import configureStore from '../configureStore'
 
@@ -24,8 +25,9 @@ const moviesData = [
   }
 ]
 
+const store = configureStore()
 render(
-  <Provider store={configureStore()}>
+  <Provider store={store}>
     <AppLayout
       employee={employee}
       moviesData={moviesData}
