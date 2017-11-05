@@ -1,13 +1,9 @@
 import { createStore, compose, applyMiddleware } from 'redux'
+import logger from 'redux-logger'
 import thunk from 'redux-thunk'
-import { reactReduxFirebase, getFirebase } from 'react-redux-firebase'
-import * as FirebaseConfig from './firebaseConfig'
 
 const enhance = compose(
-  applyMiddleware(
-    thunk.withExtraArgument(getFirebase),
-  ),
-  reactReduxFirebase(FirebaseConfig.firebase, { userProfile: 'users' }),
+  applyMiddleware(...[thunk, logger]),
   window.devToolsExtension && window.devToolsExtension()
 )
 

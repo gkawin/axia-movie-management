@@ -1,8 +1,11 @@
 import { combineReducers } from 'redux'
-import { firebaseStateReducer as firebase } from 'react-redux-firebase'
+
+import moviesLoadingState from './reducers/moviesLoadingStateReducer'
+import movies from './reducers/moviesReducer'
 
 const rootReducer = combineReducers({
-  firebase,
+  moviesLoadingState,
+  movies
 })
 
 export default rootReducer

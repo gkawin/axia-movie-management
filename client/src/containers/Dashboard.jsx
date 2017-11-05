@@ -9,11 +9,11 @@ import * as MovieActions from '../action-creators/MovieActions'
 
 import Panel from '../components/dashboard/Panel.jsx'
 import AddForm from '../components/movieForm/AddForm.jsx'
-import MovieList from '../components/movieList/MovieList.jsx'
+import ShowAllMovies from './ShowAllMovies.jsx'
 
 const enhance = compose(
   connect(
-    (state) => ({ }),
+    (state) => ({ addNewMovieStatus: false }),
     { onSubmit: MovieActions.saveMovie }
   )
 )
@@ -21,7 +21,6 @@ const enhance = compose(
 class Dashboard extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
-    moviesData: PropTypes.arrayOf(PropTypes.object),
     employee: PropTypes.shape({
       position: PropTypes.string.isRequired,
     }),
@@ -37,12 +36,11 @@ class Dashboard extends React.PureComponent {
 
   renderForm = () => {
     if (!this.state.toggleForm) return null
-    const Component = this.state.mode === 'add' ? AddForm : MovieList
+    const Component = this.state.mode === 'add' ? AddForm : ShowAllMovies
     return (
       <div className='form-viewer'>
         <Component
           employee={this.props.employee}
-          data={this.props.moviesData}
           onSubmit={this.props.onSubmit}
         />
       </div>
@@ -50,7 +48,6 @@ class Dashboard extends React.PureComponent {
   }
 
   render () {
-    console.log(this.props)
     return (
       <div className={this.props.className}>
         <Panel

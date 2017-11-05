@@ -18,7 +18,7 @@ class MovieList extends React.PureComponent {
       position: PropTypes.string,
     }),
     className: PropTypes.string,
-    data: PropTypes.array.isRequired,
+    data: PropTypes.array,
   }
 
   state = { editItem: { editable: false, at: undefined, payload: { } } }
@@ -64,6 +64,7 @@ class MovieList extends React.PureComponent {
   renderButton = (btnItem, rowInfo) => {
     return (
       <Button
+        key={rowInfo.column.id}
         bsStyle={btnItem.btnStyle}
         className='btn-operation__btn'
         name={btnItem.name}
@@ -91,7 +92,7 @@ class MovieList extends React.PureComponent {
     const affectAtColumn = cellInfo.column.id
     const representValue = _.get(this.state.editItem.payload, affectAtColumn, '')
     return (
-      <div onBlur={() => this.onUpdateRow(cellInfo)}>
+      <div key={affectAtColumn} onBlur={() => this.onUpdateRow(cellInfo)}>
         <FormControl
           type='text'
           label='Movie Title'
@@ -112,7 +113,7 @@ class MovieList extends React.PureComponent {
       ? ReleasedYearSelector
       : RatingSelector
     return (
-      <div onBlur={() => this.onUpdateRow(cellInfo)}>
+      <div key={affectAtColumn} onBlur={() => this.onUpdateRow(cellInfo)}>
         <Component
           nolabel
           value={representValue}
