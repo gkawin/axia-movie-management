@@ -29,7 +29,7 @@ class ReleasedYearSelection extends React.PureComponent {
         nolabel={this.props.nolabel}
         label='ReleasedYear'
         name='releasedYear'
-        optionItems={getYearRangeOptions()}
+        optionItems={getYearRangeOptions().sort().reverse()}
         value={this.props.value}
         onChange={this.onChange}
       />
