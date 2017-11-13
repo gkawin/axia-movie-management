@@ -15,7 +15,6 @@ injectGlobal`
 class AppLayout extends React.PureComponent {
   static propTypes = {
     className: PropTypes.string,
-    moviesData: PropTypes.arrayOf(PropTypes.object),
     employee: PropTypes.shape({
       position: PropTypes.string.isRequired,
     })
@@ -26,7 +25,6 @@ class AppLayout extends React.PureComponent {
       <div className={this.props.className}>
         <DashboardContainer
           employee={this.props.employee}
-          moviesData={this.props.moviesData}
         />
       </div>
     )

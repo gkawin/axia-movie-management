@@ -4,7 +4,7 @@ import thunk from 'redux-thunk'
 
 const enhance = compose(
   applyMiddleware(...[thunk, logger]),
-  window.devToolsExtension && window.devToolsExtension()
+  window.devToolsExtension ? window.devToolsExtension() : f => f
 )
 
 export default function configureStore (initialState) {
