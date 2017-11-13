@@ -5,6 +5,10 @@ const Action = AlgebraicType({
   AddMovieItemSucceed: { },
   AddMovieItemFailed: { error: String },
 
+  UpdateMovieRequested: { },
+  UpdateMovieSucceed: { },
+  UpdateMovieFailed: { error: String },
+
   FetchAllMoviesRequested: { },
   FetchAllMoviesSucceed: { },
   FetchAllMoviesFailed: { error: String },

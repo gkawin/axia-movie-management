@@ -14,6 +14,7 @@ import RatingSelector from '../movieForm/RatingSelector.jsx'
 
 class MovieList extends React.PureComponent {
   static propTypes = {
+    editMovie: PropTypes.func,
     employee: PropTypes.shape({
       position: PropTypes.string,
     }),
@@ -55,9 +56,9 @@ class MovieList extends React.PureComponent {
 
   onUpdateRow = async (rowInfo) => {
     await this.setState({ editItem: u({ editable: false })(this.state.editItem) })
-    // const { at, payload } = this.state.editItem
-    console.log(this.state.editItem)
-    // await this.state.store.updateAt(at, payload)
+    const { payload } = this.state.editItem
+    await this.props.editMovie(payload)
+    this.forceUpdate()
   }
 
   renderButton = (btnItem, rowInfo) => {
