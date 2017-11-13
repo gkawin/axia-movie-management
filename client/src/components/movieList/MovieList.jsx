@@ -29,7 +29,6 @@ class MovieList extends React.PureComponent {
 
   onDeleteRow = async (rowInfo) => {
     await this.setState({ editItem: u({ at: rowInfo.index })(this.state.editItem) })
-    console.log(this.state.editItem)
     // await this.state.store.deleteAt(this.state.editItem.at)
     this.forceUpdate()
   }
