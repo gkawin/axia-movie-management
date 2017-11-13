@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { injectGlobal } from 'styled-components'
 import { colors } from 'main-design'
 
-import DashboardContainer from '../containers/Dashboard.jsx'
+import DashboardContainer from '../containers/DashboardContainer.jsx'
 
 injectGlobal`
   body {

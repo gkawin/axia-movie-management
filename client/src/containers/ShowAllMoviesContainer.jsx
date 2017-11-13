@@ -16,7 +16,6 @@ class ShowAllMovies extends React.PureComponent {
   }
 
   render () {
-    console.log(this.props.movies)
     if (this.props.moviesLoadingState.status !== 'loaded') return 'Loading'
     return (
       <MovieList
